@@ -42,16 +42,15 @@ def analisar_tokens_dataset():
         for idx, row in enumerate(dataset):
             logger.debug(f"Exemplo {idx}: {row}")
             question = f"#### Human: {row['question'].strip()}"
-            answer = f"#### Assistant: {row['answer'].strip()}"
             
             # Tokeniza a entrada completa
-            tokens = tokenizer(question + answer)
+            tokens = tokenizer(question)
             num_tokens = len(tokens['input_ids'])
             token_lengths.append(num_tokens)
             
             if num_tokens > max_tokens:
                 max_tokens = num_tokens
-                max_question = question + answer
+                max_question = question
         # Estatísticas
         logger.info(f"Número máximo de tokens: {max_tokens}")
         logger.info(f"Média de tokens: {sum(token_lengths) / len(token_lengths):.2f}")
