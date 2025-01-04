@@ -1,6 +1,7 @@
 import pandas as pd
 from transformers import AutoTokenizer
 import logging
+from datasets import Dataset
 
 def configurar_logging():
     logging.basicConfig(
@@ -20,7 +21,10 @@ def analisar_tokens_dataset():
     try:
         # Carrega o dataset
         df = pd.read_json('./formatted_training_data.json')
-        logger.info(f"Dataset carregado com sucesso. Total de exemplos: {len(df)}")
+        dataset = Dataset.from_pandas(df)
+        logger.info(f"Dataset carregado com sucesso. Total de exemplos: {len(dataset)}")
+
+        dataset = Dataset.from_list(dataset["train"])
 
         # Carrega o tokenizer
         tokenizer = AutoTokenizer.from_pretrained(
@@ -35,7 +39,8 @@ def analisar_tokens_dataset():
         max_question = ""
         token_lengths = []
 
-        for idx, row in df.iterrows():
+        for idx, row in enumerate(dataset):
+            logger.debug(f"Exemplo {idx}: {row}")
             question = f"#### Human: {row['question'].strip()}"
             answer = f"#### Assistant: {row['answer'].strip()}"
             
@@ -47,7 +52,6 @@ def analisar_tokens_dataset():
             if num_tokens > max_tokens:
                 max_tokens = num_tokens
                 max_question = question + answer
-
         # Estatísticas
         logger.info(f"Número máximo de tokens: {max_tokens}")
         logger.info(f"Média de tokens: {sum(token_lengths) / len(token_lengths):.2f}")
