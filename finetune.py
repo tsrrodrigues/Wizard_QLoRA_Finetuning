@@ -98,6 +98,8 @@ def processar_dataset(dataset, tokenizer, max_length, logger):
             logger.debug(f"Questão formatada: {question}")
             logger.debug(f"Resposta formatada: {output}")
 
+            return
+
             question_encoded = tokenizer(question)
             logger.debug(f"Tamanho dos tokens da questão: {len(question_encoded['input_ids'])}")
             
@@ -225,10 +227,10 @@ def main():
     tokenizer = carregar_tokenizer(model_type, logger)
     dataset = carregar_dataset(logger)
     dataset = processar_dataset(dataset, tokenizer, max_length, logger)
-    data_train, data_test = preparar_dados_treino(dataset, logger)
-    model = configurar_lora(model, lora_config, logger)
-    trainer = configurar_trainer(model, training_args_config, data_train, data_test, tokenizer, logger)
-    treinar_modelo(trainer, logger)
+    # data_train, data_test = preparar_dados_treino(dataset, logger)
+    # model = configurar_lora(model, lora_config, logger)
+    # trainer = configurar_trainer(model, training_args_config, data_train, data_test, tokenizer, logger)
+    # treinar_modelo(trainer, logger)
 
 if __name__ == "__main__":
     main()
