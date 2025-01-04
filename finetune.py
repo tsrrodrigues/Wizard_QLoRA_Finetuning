@@ -148,6 +148,7 @@ def preparar_dados_treino(dataset, logger):
 
 def configurar_lora(model, lora_config, logger):
     try:
+        logger.info(f"Configurando LoRA: {lora_config}")
         peft_config = LoraConfig(**lora_config)
         model = get_peft_model(model, peft_config)
         model.print_trainable_parameters()
@@ -159,6 +160,7 @@ def configurar_lora(model, lora_config, logger):
 
 def configurar_trainer(model, training_args_config, data_train, data_test, tokenizer, logger):
     try:
+        logger.info(f"Configurando Trainer: {training_args_config}")
         training_args = TrainingArguments(**training_args_config)
         trainer = Trainer(
             model=model,
@@ -175,6 +177,7 @@ def configurar_trainer(model, training_args_config, data_train, data_test, token
 
 def treinar_modelo(trainer, logger):
     try:
+        logger.info("Iniciando treinamento...")
         trainer.train()
         logger.info("Treinamento concluído com sucesso")
     except Exception as e:
@@ -207,8 +210,8 @@ def main():
         "optim": "adafactor",
         "learning_rate": 0.00005,
         "weight_decay": 0.002,
-        "per_device_train_batch_size": 8,
-        "per_device_eval_batch_size": 8,
+        "per_device_train_batch_size": 4,
+        "per_device_eval_batch_size": 4,
         "gradient_accumulation_steps": 2,
         "do_train": True,
         "warmup_steps": 5,
