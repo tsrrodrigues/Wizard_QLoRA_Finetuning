@@ -40,7 +40,6 @@ def analisar_tokens_dataset():
         token_lengths = []
 
         for idx, row in enumerate(dataset):
-            logger.debug(f"Exemplo {idx}: {row}")
             question = f"#### Human: {row['question'].strip()}"
             
             # Tokeniza a entrada completa
