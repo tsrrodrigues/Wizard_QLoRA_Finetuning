@@ -8,6 +8,8 @@ from transformers import (
     TrainingArguments,
     Trainer,
 )
+import pandas as pd
+from datasets import Dataset
 
 max_length = 128
 
@@ -98,8 +100,9 @@ tokenizer = AutoTokenizer.from_pretrained(
 tokenizer.pad_token = tokenizer.eos_token
 
 
-# Load in the dataset and map using the tokenizer
-dataset = load_dataset('json', data_files='./training_data.jsonl')
+# Carregando com pandas primeiro
+df = pd.read_json('./training_data.jsonl', lines=True)
+dataset = Dataset.from_pandas(df)
 
 def map_function(example):
     # Get the question and model output
