@@ -183,7 +183,7 @@ def treinar_modelo(trainer, logger):
 
 def main():
     # Configurações
-    max_length = 1024
+    max_length = 1106
     load_in_4bit = True
     model_type = "llama"
     dataset_type = "custom"
