@@ -138,7 +138,7 @@ def map_function(example):
 
 dataset = Dataset.from_list(dataset["train"]).map(map_function)
 
-Randomize data
+# Randomize data
 dataset = dataset.shuffle()
 
 # Test/train split
