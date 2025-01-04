@@ -7,3 +7,4 @@ outputs*
 reddit*
 wandb
 venv/
+finetune.log
