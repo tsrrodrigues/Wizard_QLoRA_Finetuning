@@ -55,7 +55,7 @@ logging_steps = 25                                  # Number of steps before log
 
 
 
-# Load in the model as a 4-bit or 8-bit model
+Load in the model as a 4-bit or 8-bit model
 if load_in_4bit == True:
     bnb_config = BitsAndBytesConfig(
         load_in_4bit=True,
@@ -136,9 +136,9 @@ def map_function(example):
         "attention_mask": attention_mask
     }
 
-dataset = dataset["train"].map(map_function)
+dataset = Dataset.from_list(dataset["train"]).map(map_function)
 
-# Randomize data
+Randomize data
 dataset = dataset.shuffle()
 
 # Test/train split
