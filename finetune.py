@@ -15,7 +15,7 @@ import sys
 
 def configurar_logging():
     logging.basicConfig(
-        level=logging.INFO,
+        level=logging.DEBUG,
         format='%(asctime)s - %(levelname)s - %(message)s',
         handlers=[
             logging.FileHandler('finetune.log'),
@@ -97,8 +97,6 @@ def processar_dataset(dataset, tokenizer, max_length, logger):
             output = f"#### Assistant: {example['answer'].strip()}"
             logger.debug(f"Questão formatada: {question}")
             logger.debug(f"Resposta formatada: {output}")
-
-            return
 
             question_encoded = tokenizer(question)
             logger.debug(f"Tamanho dos tokens da questão: {len(question_encoded['input_ids'])}")
