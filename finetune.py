@@ -101,7 +101,7 @@ tokenizer.pad_token = tokenizer.eos_token
 
 
 # Carregando com pandas primeiro
-df = pd.read_json('./formatted_training_data.jsonl', lines=True)
+df = pd.read_json('./formatted_training_data.json', lines=True)
 dataset = Dataset.from_pandas(df)
 
 def map_function(example):
