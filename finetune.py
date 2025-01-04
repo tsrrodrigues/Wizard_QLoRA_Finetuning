@@ -221,15 +221,14 @@ def main():
     logger.info("Iniciando processo de fine-tuning...")
     
     # Pipeline principal
-    # model = carregar_modelo(model_type, load_in_4bit, logger)
-    # tokenizer = carregar_tokenizer(model_type, logger)
-    tokenizer = None
+    model = carregar_modelo(model_type, load_in_4bit, logger)
+    tokenizer = carregar_tokenizer(model_type, logger)
     dataset = carregar_dataset(logger)
     dataset = processar_dataset(dataset, tokenizer, max_length, logger)
-    # data_train, data_test = preparar_dados_treino(dataset, logger)
-    # model = configurar_lora(model, lora_config, logger)
-    # trainer = configurar_trainer(model, training_args_config, data_train, data_test, tokenizer, logger)
-    # treinar_modelo(trainer, logger)
+    data_train, data_test = preparar_dados_treino(dataset, logger)
+    model = configurar_lora(model, lora_config, logger)
+    trainer = configurar_trainer(model, training_args_config, data_train, data_test, tokenizer, logger)
+    treinar_modelo(trainer, logger)
 
 if __name__ == "__main__":
     main()
