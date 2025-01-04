@@ -1,0 +1,13 @@
+2025-01-04 17:36:08,891 - INFO - Iniciando análise de tokens do dataset...
+2025-01-04 17:36:08,902 - INFO - Dataset carregado com sucesso. Total de exemplos: 98
+2025-01-04 17:36:08,958 - DEBUG - Starting new HTTPS connection (1): huggingface.co:443
+2025-01-04 17:36:09,551 - DEBUG - https://huggingface.co:443 "HEAD /meta-llama/Llama-3.3-70B-Instruct/resolve/main/tokenizer_config.json HTTP/1.1" 401 0
+2025-01-04 17:36:09,726 - DEBUG - https://huggingface.co:443 "HEAD /meta-llama/Llama-3.3-70B-Instruct/resolve/main/config.json HTTP/1.1" 401 0
+2025-01-04 17:36:10,157 - DEBUG - https://huggingface.co:443 "HEAD /meta-llama/Llama-3.3-70B-Instruct/resolve/main/tokenizer_config.json HTTP/1.1" 401 0
+2025-01-04 17:36:10,335 - DEBUG - https://huggingface.co:443 "HEAD /meta-llama/Llama-3.3-70B-Instruct/resolve/main/tokenizer.model HTTP/1.1" 401 0
+2025-01-04 17:36:10,514 - DEBUG - https://huggingface.co:443 "HEAD /meta-llama/Llama-3.3-70B-Instruct/resolve/main/tokenizer.json HTTP/1.1" 401 0
+2025-01-04 17:36:10,693 - DEBUG - https://huggingface.co:443 "HEAD /meta-llama/Llama-3.3-70B-Instruct/resolve/main/added_tokens.json HTTP/1.1" 401 0
+2025-01-04 17:36:10,871 - DEBUG - https://huggingface.co:443 "HEAD /meta-llama/Llama-3.3-70B-Instruct/resolve/main/special_tokens_map.json HTTP/1.1" 401 0
+2025-01-04 17:36:11,047 - DEBUG - https://huggingface.co:443 "HEAD /meta-llama/Llama-3.3-70B-Instruct/resolve/main/tokenizer_config.json HTTP/1.1" 401 0
+2025-01-04 17:36:11,462 - DEBUG - https://huggingface.co:443 "HEAD /meta-llama/Llama-3.3-70B-Instruct/resolve/main/chat_template.jinja HTTP/1.1" 401 0
+2025-01-04 17:36:11,465 - ERROR - Erro durante a análise: Can't load tokenizer for 'meta-llama/Llama-3.3-70B-Instruct'. If you were trying to load it from 'https://huggingface.co/models', make sure you don't have a local directory with the same name. Otherwise, make sure 'meta-llama/Llama-3.3-70B-Instruct' is the correct path to a directory containing all relevant files for a LlamaTokenizerFast tokenizer.
