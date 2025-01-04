@@ -6,3 +6,4 @@ outputs/
 outputs*
 reddit*
 wandb
+venv/
