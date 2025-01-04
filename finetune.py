@@ -136,13 +136,20 @@ except Exception as e:
 
 def map_function(example):
     try:
+        logger.info("Iniciando processamento de exemplo...")
+        
         # Get the question and model output
         question = f"#### Human: {example['question'].strip()}"
         output = f"#### Assistant: {example['answer'].strip()}"
+        logger.debug(f"Questão formatada: {question}")
+        logger.debug(f"Resposta formatada: {output}")
 
         # Encode the question and output
         question_encoded = tokenizer(question)
+        logger.debug(f"Tamanho dos tokens da questão: {len(question_encoded['input_ids'])}")
+        
         output_encoded = tokenizer(output, max_length=max_length-1-len(question_encoded["input_ids"]), truncation=True, padding="max_length")
+        logger.debug(f"Tamanho dos tokens da resposta: {len(output_encoded['input_ids'])}")
 
         # Add on a pad token to the end of the input_ids
         output_encoded["input_ids"] = output_encoded["input_ids"] + [tokenizer.pad_token_id]
@@ -150,14 +157,17 @@ def map_function(example):
 
         # Combine the input ids
         input_ids = question_encoded["input_ids"] + output_encoded["input_ids"]
+        logger.debug(f"Tamanho total dos input_ids: {len(input_ids)}")
 
         # Combine the attention masks
         attention_mask = [1]*len(question_encoded["input_ids"]) + [1]*(sum(output_encoded["attention_mask"])+1) + [0]*(len(output_encoded["attention_mask"])-sum(output_encoded["attention_mask"])-1)
+        logger.debug(f"Tamanho da attention mask: {len(attention_mask)}")
         
         # The labels are the input ids, but we want to mask the loss for the context and padding
         labels = [input_ids[i] if attention_mask[i] == 1 else -100 for i in range(len(attention_mask))]
         assert len(labels) == len(attention_mask) and len(attention_mask) == len(input_ids), "Labels is not the correct length"
 
+        logger.info("Exemplo processado com sucesso")
         return {
             "input_ids": input_ids,
             "labels": labels,
