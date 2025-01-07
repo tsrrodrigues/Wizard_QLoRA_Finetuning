@@ -237,9 +237,6 @@ def main():
         "warmup_steps": 5,
         "save_steps": 100,
         "logging_steps": 25,
-        "gradient_checkpointing": True,
-        "max_grad_norm": 0.3,
-        "torch_compile": False,
         "fp16": True,
     }
 
