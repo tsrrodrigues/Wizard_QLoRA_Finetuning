@@ -188,8 +188,7 @@ def main():
     # Configurações
     max_length = 1106
     load_in_4bit = True
-    model_type = "llama"
-    dataset_type = "custom"
+    model_type = "wizard13"
     
     lora_config = {
         "lora_alpha": 16,
