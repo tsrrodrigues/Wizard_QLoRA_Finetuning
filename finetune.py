@@ -12,6 +12,9 @@ import pandas as pd
 from datasets import Dataset
 import logging
 import sys
+import torch
+
+torch.cuda.empty_cache()
 
 def configurar_logging():
     logging.basicConfig(
@@ -212,9 +215,9 @@ def main():
         "weight_decay": 0.002,
         "per_device_train_batch_size": 1,
         "per_device_eval_batch_size": 1,
-        "gradient_accumulation_steps": 2,
+        "gradient_accumulation_steps": 1,
         "do_train": True,
-        "warmup_steps": 5,
+        "warmup_steps": 1,
         "save_steps": 100,
         "logging_steps": 25,
     }
