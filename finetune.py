@@ -47,7 +47,7 @@ def carregar_modelo(model_type, load_in_4bit, logger):
             bnb_config = BitsAndBytesConfig(
                 load_in_4bit=True,
                 bnb_4bit_quant_type="nf4",
-                bnb_4bit_compute_dtype="float16",
+                bnb_4bit_compute_dtype=torch.float16,
                 bnb_4bit_use_double_quant=True,
                 bnb_4bit_compute_type="float16"
             )
@@ -237,6 +237,11 @@ def main():
         "warmup_steps": 5,
         "save_steps": 100,
         "logging_steps": 25,
+        "gradient_checkpointing": True,
+        "gradient_checkpointing_kwargs": {
+            "use_reentrant": False
+        },
+        "max_grad_norm": 0.3,
         "fp16": True,
     }
 
