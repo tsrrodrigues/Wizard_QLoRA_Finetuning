@@ -209,7 +209,7 @@ def main():
     # Configurações
     max_length = 512
     load_in_4bit = True
-    model_type = "wizard7"
+    model_type = "wizard13"
     
     lora_config = {
         "lora_alpha": 16,
