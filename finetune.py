@@ -101,7 +101,8 @@ def processar_dataset(dataset, tokenizer, max_length, logger):
             question_encoded = tokenizer(question)
             logger.debug(f"Tamanho dos tokens da questão: {len(question_encoded['input_ids'])}")
             
-            output_encoded = tokenizer(output, max_length=max_length-1-len(question_encoded["input_ids"]), truncation=True, padding="max_length")
+            max_length_output = max(1, max_length-1-len(question_encoded["input_ids"]))
+            output_encoded = tokenizer(output, max_length=max_length_output, truncation=True, padding="max_length")
             logger.debug(f"Tamanho dos tokens da resposta: {len(output_encoded['input_ids'])}")
 
             output_encoded["input_ids"] = output_encoded["input_ids"] + [tokenizer.pad_token_id]
@@ -186,7 +187,7 @@ def treinar_modelo(trainer, logger):
 
 def main():
     # Configurações
-    max_length = 1482
+    max_length = 512
     load_in_4bit = True
     model_type = "wizard13"
     
