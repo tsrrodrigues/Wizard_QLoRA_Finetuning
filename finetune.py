@@ -13,6 +13,7 @@ from datasets import Dataset
 import logging
 import sys
 import torch
+import gc
 
 torch.cuda.empty_cache()
 
@@ -121,17 +122,20 @@ def processar_dataset(dataset, tokenizer, max_length, logger):
             assert len(labels) == len(attention_mask) and len(attention_mask) == len(input_ids), "Labels is not the correct length"
 
             logger.info("Exemplo processado com sucesso")
-            return {
+            result = {
                 "input_ids": input_ids,
                 "labels": labels,
                 "attention_mask": attention_mask
             }
+            gc.collect()
+            return result
         except Exception as e:
             logger.error(f"Erro no processamento do exemplo: {str(e)}")
             raise
 
     try:
         dataset = Dataset.from_list(dataset["train"]).map(map_function)
+        torch.cuda.empty_cache()
         logger.info("Transformações aplicadas com sucesso")
         return dataset
     except Exception as e:
@@ -190,7 +194,7 @@ def treinar_modelo(trainer, logger):
 
 def main():
     # Configurações
-    max_length = 1
+    max_length = 512
     load_in_4bit = True
     model_type = "wizard13"
     
@@ -215,11 +219,15 @@ def main():
         "weight_decay": 0.002,
         "per_device_train_batch_size": 1,
         "per_device_eval_batch_size": 1,
-        "gradient_accumulation_steps": 1,
+        "gradient_accumulation_steps": 2,
         "do_train": True,
-        "warmup_steps": 1,
+        "warmup_steps": 5,
         "save_steps": 100,
         "logging_steps": 25,
+        "gradient_checkpointing": True,
+        "max_grad_norm": 0.3,
+        "torch_compile": False,
+        "fp16": True,
     }
 
     # Inicialização
