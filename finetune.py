@@ -18,13 +18,26 @@ import gc
 torch.cuda.empty_cache()
 
 def configurar_logging():
+    class TruncatingFormatter(logging.Formatter):
+        def format(self, record):
+            # Formata a mensagem normalmente
+            message = super().format(record)
+            # Trunca para 100 caracteres
+            return message[:100] + '...' if len(message) > 100 else message
+
+    formatter = TruncatingFormatter('%(asctime)s - %(levelname)s - %(message)s')
+    
+    # Configura os handlers com o novo formatter
+    file_handler = logging.FileHandler('finetune.log')
+    file_handler.setFormatter(formatter)
+    
+    stream_handler = logging.StreamHandler(sys.stdout)
+    stream_handler.setFormatter(formatter)
+    
+    # Configura o logger
     logging.basicConfig(
         level=logging.DEBUG,
-        format='%(asctime)s - %(levelname)s - %(message)s',
-        handlers=[
-            logging.FileHandler('finetune.log'),
-            logging.StreamHandler(sys.stdout)
-        ]
+        handlers=[file_handler, stream_handler]
     )
     return logging.getLogger(__name__)
 
