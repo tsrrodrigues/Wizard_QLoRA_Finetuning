@@ -187,7 +187,7 @@ def treinar_modelo(trainer, logger):
 
 def main():
     # Configurações
-    max_length = 512
+    max_length = 100
     load_in_4bit = True
     model_type = "wizard13"
     
