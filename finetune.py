@@ -240,6 +240,7 @@ def main():
         "gradient_checkpointing": True,
         "max_grad_norm": 0.3,
         "torch_compile": False,
+        "requires_grad": True,
         "fp16": True,
     }
 
