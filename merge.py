@@ -19,7 +19,7 @@ model = AutoModelForCausalLM.from_pretrained(
     return_dict=True,
     torch_dtype=torch.float16,
     trust_remote_code=True,
-    device_map="cpu",  # Carrega no CPU para evitar problemas de memória
+    device_map="gpu", 
     cache_dir="./models"
 )
 
