@@ -19,7 +19,7 @@ model = AutoModelForCausalLM.from_pretrained(
     return_dict=True,
     torch_dtype=torch.float16,
     trust_remote_code=True,
-    device_map="cuda:0", 
+    device_map="cpu", 
     cache_dir="./models"
 )
 
