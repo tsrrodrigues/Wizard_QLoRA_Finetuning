@@ -4,8 +4,8 @@ import torch
 # Configurações
 device = "auto"
 local_model_path = "outputs_custom/merged_model"  # Caminho para o modelo mesclado
-repo_name = "tsrrodrigues/llama-3-finetuned"      # Nome do seu repositório no HuggingFace
-hf_token = "seu_token_aqui"                      # Seu token do HuggingFace
+repo_name = "tsrrodrigues/legal_doc_llama_v1"      # Nome do seu repositório no HuggingFace
+hf_token = "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"                      # Seu token do HuggingFace
 
 print("Carregando modelo...")
 model = AutoModelForCausalLM.from_pretrained(
